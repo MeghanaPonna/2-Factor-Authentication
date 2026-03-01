@@ -343,6 +343,44 @@ export const verifyOTP = async (req, res) => {
 };
 
 /* ===================== FORGOT PASSWORD ===================== */
+// export const forgotPassword = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     const resetToken = crypto.randomBytes(32).toString("hex");
+
+//     user.resetPasswordToken = crypto
+//       .createHash("sha256")
+//       .update(resetToken)
+//       .digest("hex");
+
+//     user.resetPasswordExpiry = Date.now() + 15 * 60 * 1000;
+//     await user.save();
+
+//     const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+
+//     await transporter.sendMail({
+//       to: user.email,
+//       subject: "Reset your password",
+//       html: `
+//         <p>Click the link below to reset your password:</p>
+//         <a href="${resetLink}">${resetLink}</a>
+//       `,
+//     });
+
+//     res.json({ message: "Password reset link sent to email" });
+//   } catch (error) {
+//     console.error("Forgot Password Error:", error.message);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
+
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -352,40 +390,78 @@ export const forgotPassword = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Generate reset token
     const resetToken = crypto.randomBytes(32).toString("hex");
-
-    user.resetPasswordToken = crypto
+    const hashedToken = crypto
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
 
-    user.resetPasswordExpiry = Date.now() + 15 * 60 * 1000;
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpiry = Date.now() + 15 * 60 * 1000; // 15 min
     await user.save();
 
-    const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
 
     await transporter.sendMail({
       to: user.email,
       subject: "Reset your password",
       html: `
+        <h2>Password Reset</h2>
         <p>Click the link below to reset your password:</p>
-        <a href="${resetLink}">${resetLink}</a>
+        <a href="${resetUrl}">${resetUrl}</a>
+        <p>This link expires in 15 minutes.</p>
       `,
     });
 
-    res.json({ message: "Password reset link sent to email" });
-  } catch (error) {
-    console.error("Forgot Password Error:", error.message);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(200).json({ message: "Reset link sent to email" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };
-
 /* ===================== RESET PASSWORD ===================== */
+// export const resetPassword = async (req, res) => {
+
+//   try {
+//     const hashedToken = crypto
+//       .createHash("sha256")
+//       .update(req.params.token)
+//       .digest("hex");
+
+//     const user = await User.findOne({
+//       resetPasswordToken: hashedToken,
+//       resetPasswordExpiry: { $gt: Date.now() },
+//     });
+
+//     if (!user) {
+//       return res
+//         .status(400)
+//         .json({ message: "Invalid or expired reset token" });
+//     }
+
+//     user.password = await bcrypt.hash(req.body.password, 10);
+//     user.resetPasswordToken = undefined;
+//     user.resetPasswordExpiry = undefined;
+
+//     await user.save();
+
+//     res.json({ message: "Password reset successful" });
+//   } catch (error) {
+//     console.error("Reset Password Error:", error.message);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
+
 export const resetPassword = async (req, res) => {
   try {
+    const { token } = req.params;
+    const { password } = req.body;
+
     const hashedToken = crypto
       .createHash("sha256")
-      .update(req.params.token)
+      .update(token)
       .digest("hex");
 
     const user = await User.findOne({
@@ -394,20 +470,17 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Invalid or expired reset token" });
+      return res.status(400).json({ message: "Invalid or expired token" });
     }
 
-    user.password = await bcrypt.hash(req.body.password, 10);
+    user.password = await bcrypt.hash(password, 10);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpiry = undefined;
 
     await user.save();
 
-    res.json({ message: "Password reset successful" });
-  } catch (error) {
-    console.error("Reset Password Error:", error.message);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };
