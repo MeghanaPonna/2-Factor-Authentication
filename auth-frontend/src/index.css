@@ -1,0 +1,215 @@
+/* ===================== RESET ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* ===================== THEME ===================== */
+:root {
+  --bg: #0f172a;
+  --card: #020617;
+  --card-light: #111827;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --border: #1f2933;
+  --error: #ef4444;
+  --success: #22c55e;
+}
+
+/* ===================== BODY ===================== */
+body {
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+/* ===================== AUTH CONTAINER ===================== */
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(180deg, #020617, #020617cc);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: fadeIn 0.5s ease;
+}
+
+/* ===================== HEADINGS ===================== */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ===================== FORM ===================== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ===================== INPUTS ===================== */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+/* ===================== BUTTON ===================== */
+button {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), #818cf8);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===================== LINKS ===================== */
+a {
+  color: #a5b4fc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===================== TEXT HELPERS ===================== */
+.auth-link {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.success-text {
+  color: var(--success);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+/* ===================== DASHBOARD ===================== */
+.dashboard {
+  width: 100%;
+  max-width: 720px;
+  background: var(--card-light);
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  animation: fadeIn 0.5s ease;
+}
+
+.dashboard h2 {
+  margin-bottom: 8px;
+}
+
+.dashboard p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ===================== PROFILE CARD ===================== */
+.profile-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.profile-card p {
+  margin-bottom: 6px;
+}
+
+/* ===================== SETTINGS ===================== */
+.settings-card {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* ===================== LOGOUT BUTTON ===================== */
+.logout-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  margin-top: 16px;
+}
+
+.logout-btn:hover {
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* ===================== ANIMATION ===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 480px) {
+  .auth-container,
+  .dashboard {
+    margin: 0 16px;
+    padding: 24px;
+  }
+}
