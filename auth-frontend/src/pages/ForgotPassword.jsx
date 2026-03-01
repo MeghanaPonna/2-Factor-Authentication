@@ -25,6 +25,7 @@ const ForgotPassword = () => {
   };
 
   return (
+    <div className="auth-page">
     <div className="auth-container">
       <h2>Forgot Password</h2>
 
@@ -48,6 +49,7 @@ const ForgotPassword = () => {
       <p className="auth-link">
         <Link to="/">Back to Login</Link>
       </p>
+    </div>
     </div>
   );
 };

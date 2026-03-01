@@ -121,6 +121,7 @@ const Login = () => {
   };
 
   return (
+    <div className="auth-page">
     <div className="auth-container">
       <h2>Login</h2>
 
@@ -153,6 +154,7 @@ const Login = () => {
       <p className="auth-link">
         <Link to="/forgot-password">Forgot password?</Link>
       </p>
+    </div>
     </div>
   );
 };

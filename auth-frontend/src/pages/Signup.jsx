@@ -134,6 +134,7 @@ const Signup = () => {
   };
 
   return (
+    <div className="auth-page">
     <div className="auth-container">
       <h2>Create Account</h2>
 
@@ -176,6 +177,7 @@ const Signup = () => {
       <p className="auth-link" style={{ marginTop: "12px" }}>
         Already have an account? <Link to="/">Login</Link>
       </p>
+    </div>
     </div>
   );
 };

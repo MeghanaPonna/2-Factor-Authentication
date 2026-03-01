@@ -92,6 +92,7 @@ const VerifyOTP = () => {
   };
 
   return (
+    <div className="auth-page">
     <div className="auth-container">
       <h2>Verify OTP</h2>
 
@@ -115,6 +116,7 @@ const VerifyOTP = () => {
           {loading ? "Verifying..." : "Verify OTP"}
         </button>
       </form>
+    </div>
     </div>
   );
 };
