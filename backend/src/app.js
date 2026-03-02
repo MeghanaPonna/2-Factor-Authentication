@@ -18,7 +18,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("Backend is running");
+  res.status(200).send("Backend is running");
 });
 
 app.use("/api/auth", authRoutes);

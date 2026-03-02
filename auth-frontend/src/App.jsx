@@ -9,6 +9,8 @@ import ResetPassword from "./pages/ResetPassword";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import Security from "./pages/Security";
+import VerifyEmail from "./pages/VerifyEmail";
+import CheckEmail from "./pages/CheckEmail";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Route path="/verify-otp" element={<VerifyOTP />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/verify-email/:token" element={<VerifyEmail />} />
 
       <Route
         path="/dashboard"
@@ -27,6 +30,8 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route path="/check-email" element={<CheckEmail />} />
       <Route
         path="/settings"
         element={
