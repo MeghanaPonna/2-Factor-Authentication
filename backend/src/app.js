@@ -12,7 +12,7 @@ app.use(express.json());
 /* 🔥 CORS CONFIG */
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend
+    origin: "https://2-factor-authentication-lovat.vercel.app/", // frontend
     credentials: true,
   })
 );
