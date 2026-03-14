@@ -35,7 +35,8 @@ export const register = async (req, res) => {
       emailVerificationExpiry: Date.now() + 24 * 60 * 60 * 1000,
     });
 
-    const verifyUrl = `https://2-factor-authentication-lovat.vercel.app/verify-email/${verificationToken}`;
+    // const verifyUrl = `https://2-factor-authentication-lovat.vercel.app/verify-email/${verificationToken}`;
+    const verifyUrl = `http://localhost:5173/verify-email/${verificationToken}`;
 
     await transporter.sendMail({
       to: email,
@@ -254,7 +255,8 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordExpiry = Date.now() + 15 * 60 * 1000;
     await user.save();
 
-    const resetUrl = `https://2-factor-authentication-lovat.vercel.app/reset-password/${resetToken}`;
+    // const resetUrl = `https://2-factor-authentication-lovat.vercel.app/reset-password/${resetToken}`;
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
 
     await transporter.sendMail({
       to: user.email,
