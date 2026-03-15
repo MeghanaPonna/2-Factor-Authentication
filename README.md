@@ -152,4 +152,3 @@ npm start
 
 **Ponna Meghana**
 Full Stack Developer (MERN)
-If you want, I can also give you a **🔥 GitHub-level README (with badges, screenshots, and deployment links)** that makes your project look **10x more impressive to recruiters**.
